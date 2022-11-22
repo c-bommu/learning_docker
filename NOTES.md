@@ -30,7 +30,7 @@
      * This can be useful when testing different versions of some base program, for example. All versions can be tested simultaneously in their own containers, which saves a lot of time compared to if you were to run each version of the program one after the other 
 * Containers can never update an image, which is read-only outside of its associated Dockerfile
 * Running a container:
-     *The `docker run` command is used to start a container
+     * The `docker run` command is used to start a container
      * Containers will run indefinitely until they either fail or are told to stop
           * While running, they cannot update themselves if any changes are made to the image on which they are based. You must stop, remove, and restart all containers based on this image in order to successfully update them
 
