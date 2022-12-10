@@ -40,4 +40,12 @@
 9. Figured out how to watch logs using the `docker logs` command
      * After watching logs, I was able to make a change to my app and then simply refresh/reopen the localhost page to see the change reflected almost immediately.
           * I should mention that after all of the desired changes have been made, it is important to stop the container and then build a new image so that these changes will be saved.
+10. Learned about multi-container apps
+     * **In general, each container should do one thing and do it well.** This is because...
+          * There is a good chance I may have to scale APIs and front-ends differently than databases
+          * Separate containers would also for me to version and update versions in isolation, which is very helpful for testing
+          * Running multiple processes would end up requiring a process manager, which complicates container startup/shutdown. This would not happen if the container only starts one process.
+11. Learned about container networking
+     * Since containers run in isolation by default, they do not know anything about other processes or containers on the same machine.
+          * However, if containers are **on the same network**, they would be able to communicate with one another.
 
