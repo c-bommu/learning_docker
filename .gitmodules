@@ -1,0 +1,3 @@
+[submodule "practice/basics-tutorial"]
+	path = practice/basics-tutorial
+	url = https://github.com/c-bommu/basics-tutorial.git
