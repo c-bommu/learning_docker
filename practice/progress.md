@@ -14,7 +14,7 @@
           * Learned that containers are effectively read-only. While containers can create, update, and delete files, those changes are lost when the container is removed and are isolated to that container. Volumes can change this.
      * Regarding container volumes...
           * Learned that volumes provide the ability to connect specific filesystem paths of the container back to the host machine. If a directory in the container is mounted, changes in that directory are also seen on the host machine. If we mount that same directory across container restarts, we'd see the same files.
-          * There are two main types of volumes: named volumes & anonymous volumes.
+          * There are two main types of volumes: named volumes & bind mounts.
                * I began with first learning about named volumes.
      * To persist data...
           * Learned that with my database being in a single file, if we can persist that file on the host and make it available to the next container, it should be able to pick up where the last one left off.
@@ -24,3 +24,20 @@
                     * Learned to use the `docker volume create` command to create a volume
                * The `docker volume inspect` command tells me where Docker is *actually* storing my data when I use a named volume.
                     * Specifically, the `Mountpoint` that is presented after running this command displays the actual location on the disk where the data is stored. It would be important to note that on most machines, I would need to have root access in order to access this directory from the host.
+               * Named volumes are great if we simply want to store data, since we would not have to worry about *where* it is stored.
+7. Learned that **bind mounts** serve as a better way of making changes since rebuilding images for every change takes quite a bit of time.
+     * They allowed me to control the exact mountpoint on the host.
+          * While we can use this to persist data (like I practiced earlier), it is often used to provide additional data into containers.
+          * I was able to use a bind mount to mount my source code into the container to let it see code changes, respond, and allow me to see changes immediately.
+     * For Node-based applications, [nodemon](https://www.npmjs.com/package/nodemon) is a useful tool used to watch for file changes and then restart the application.
+8. Learned how to start a dev-mode container
+     * First, I had to mount my source code into the container after ensuring that I had no previous associated Docker containers running
+          * Learned that I need to choose a base image (in my case, `node:10-alpine`) to use for my app from the Dockerfile
+     * Next, I installed all dependencies, including the “dev” dependencies
+          * Used `yarn install` and `yarn run dev` for my application
+     * Lastly, I started nodemon to watch for any filesystem changes
+          * This was done in the same command that I had run in the previous step, since the `dev` script within the `package.json` file starts `nodemon`.
+9. Figured out how to watch logs using the `docker logs` command
+     * After watching logs, I was able to make a change to my app and then simply refresh/reopen the localhost page to see the change reflected almost immediately.
+          * I should mention that after all of the desired changes have been made, it is important to stop the container and then build a new image so that these changes will be saved.
+
